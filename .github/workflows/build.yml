@@ -34,6 +34,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build, tag, and push the image to Amazon ECR
+        if: ${{ github.ref_type == 'tag' }}
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -41,3 +42,14 @@ jobs:
         run: |
           docker image build -t $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG
+
+      - name: Build, tag, and push the image to Amazon ECR
+        if: ${{ (github.ref_type == 'branch') && (github.ref == 'main') }}
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.ref_name }}-${{ github.sha }}
+        run: |
+          docker image build -t $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG -t $ECR_REGISTRY/$REPO_NAME:latest .
+          docker push $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$REPO_NAME:latest
