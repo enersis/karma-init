@@ -40,4 +40,4 @@ jobs:
           IMAGE_TAG: ${{ github.ref_name }}
         run: |
           docker image build -t $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$REPO_NAME:$IMAGE_TAG
