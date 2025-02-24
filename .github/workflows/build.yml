@@ -26,7 +26,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: $ROLE
+          role-to-assume: arn:aws:iam::101328822697:role/gh-enersis-karma-init
           aws-region: eu-central-1
 
       - name: Login to Amazon ECR
