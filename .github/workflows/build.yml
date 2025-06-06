@@ -8,7 +8,7 @@ on:
 
 env:
   REPO_NAME: "karma-init"
-  ROLE: "arn:aws:iam::101328822697:role/gh-enersis-karma-init"
+  ROLE: "arn:aws:iam::101328822697:role/enersis-github-action"
 
 jobs:
   Build:
